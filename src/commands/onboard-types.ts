@@ -119,6 +119,9 @@ export type OnboardOptions = {
   opencodeZenApiKey?: string;
   xaiApiKey?: string;
   qianfanApiKey?: string;
+  azureOpenAiApiKey?: string;
+  azureOpenAiResourceName?: string;
+  azureOpenAiDeploymentName?: string;
   customBaseUrl?: string;
   customApiKey?: string;
   customModelId?: string;
