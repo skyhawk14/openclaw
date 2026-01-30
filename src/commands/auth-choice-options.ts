@@ -21,7 +21,8 @@ export type AuthChoiceGroupId =
   | "minimax"
   | "synthetic"
   | "venice"
-  | "qwen";
+  | "qwen"
+  | "azure-openai";
 
 export type AuthChoiceGroup = {
   value: AuthChoiceGroupId;
@@ -120,6 +121,12 @@ const AUTH_CHOICE_GROUP_DEFS: {
     hint: "API key",
     choices: ["opencode-zen"],
   },
+  {
+    value: "azure-openai",
+    label: "Azure OpenAI",
+    hint: "API key + resource/deployment",
+    choices: ["azure-openai-api-key"],
+  },
 ];
 
 export function buildAuthChoiceOptions(params: {
@@ -193,6 +200,11 @@ export function buildAuthChoiceOptions(params: {
     value: "minimax-api-lightning",
     label: "MiniMax M2.1 Lightning",
     hint: "Faster, higher output cost",
+  });
+  options.push({
+    value: "azure-openai-api-key",
+    label: "Azure OpenAI API key",
+    hint: "Requires resource name and deployment name",
   });
   if (params.includeSkip) {
     options.push({ value: "skip", label: "Skip for now" });

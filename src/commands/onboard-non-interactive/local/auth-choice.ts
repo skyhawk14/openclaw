@@ -20,6 +20,7 @@ import {
   applyXiaomiConfig,
   applyZaiConfig,
   setAnthropicApiKey,
+  setAzureOpenAiApiKey,
   setGeminiApiKey,
   setKimiCodeApiKey,
   setMinimaxApiKey,
@@ -356,6 +357,26 @@ export async function applyNonInteractiveAuthChoice(params: {
   }
 
   if (authChoice === "minimax") return applyMinimaxConfig(nextConfig);
+
+  if (authChoice === "azure-openai-api-key") {
+    const resolved = await resolveNonInteractiveApiKey({
+      provider: "azure-openai",
+      cfg: baseConfig,
+      flagValue: opts.azureOpenAiApiKey,
+      flagName: "--azure-openai-api-key",
+      envVar: "AZURE_OPENAI_API_KEY",
+      runtime,
+    });
+    if (!resolved) return null;
+    if (resolved.source !== "profile") await setAzureOpenAiApiKey(resolved.key);
+    nextConfig = applyAuthProfileConfig(nextConfig, {
+      profileId: "azure-openai:default",
+      provider: "azure-openai",
+      mode: "api_key",
+    });
+    // Azure OpenAI model default depends on deployment; config is set via env vars.
+    return nextConfig;
+  }
 
   if (authChoice === "opencode-zen") {
     const resolved = await resolveNonInteractiveApiKey({

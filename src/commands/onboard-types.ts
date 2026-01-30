@@ -29,6 +29,7 @@ export type AuthChoice =
   | "minimax-api"
   | "minimax-api-lightning"
   | "opencode-zen"
+  | "azure-openai-api-key"
   | "github-copilot"
   | "copilot-proxy"
   | "qwen-portal"
@@ -73,6 +74,9 @@ export type OnboardOptions = {
   syntheticApiKey?: string;
   veniceApiKey?: string;
   opencodeZenApiKey?: string;
+  azureOpenAiApiKey?: string;
+  azureOpenAiResourceName?: string;
+  azureOpenAiDeploymentName?: string;
   gatewayPort?: number;
   gatewayBind?: GatewayBind;
   gatewayAuth?: GatewayAuthChoice;

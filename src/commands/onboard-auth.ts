@@ -37,6 +37,7 @@ export {
 export {
   OPENROUTER_DEFAULT_MODEL_REF,
   setAnthropicApiKey,
+  setAzureOpenAiApiKey,
   setGeminiApiKey,
   setKimiCodeApiKey,
   setMinimaxApiKey,
