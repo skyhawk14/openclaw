@@ -48,6 +48,7 @@ export {
   setAnthropicApiKey,
   setCloudflareAiGatewayConfig,
   setQianfanApiKey,
+  setAzureOpenAiApiKey,
   setGeminiApiKey,
   setKimiCodingApiKey,
   setMinimaxApiKey,
