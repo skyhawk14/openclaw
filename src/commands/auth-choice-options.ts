@@ -9,6 +9,27 @@ export type AuthChoiceOption = {
   label: string;
   hint?: string;
 };
+
+export type AuthChoiceGroupId =
+  | "openai"
+  | "anthropic"
+  | "google"
+  | "copilot"
+  | "openrouter"
+  | "ai-gateway"
+  | "cloudflare-ai-gateway"
+  | "moonshot"
+  | "zai"
+  | "xiaomi"
+  | "opencode-zen"
+  | "minimax"
+  | "synthetic"
+  | "venice"
+  | "qwen"
+  | "qianfan"
+  | "xai"
+  | "azure-openai";
+
 export type AuthChoiceGroup = {
   value: AuthChoiceGroupId;
   label: string;
@@ -155,6 +176,12 @@ const AUTH_CHOICE_GROUP_DEFS: {
     choices: ["cloudflare-ai-gateway-api-key"],
   },
   {
+    value: "azure-openai",
+    label: "Azure OpenAI",
+    hint: "API key + resource/deployment",
+    choices: ["azure-openai-api-key"],
+  },
+  {
     value: "custom",
     label: "Custom Provider",
     hint: "Any OpenAI or Anthropic compatible endpoint",
@@ -297,6 +324,11 @@ const BASE_AUTH_CHOICE_OPTIONS: ReadonlyArray<AuthChoiceOption> = [
     hint: "Faster, higher output cost",
   },
   { value: "custom-api-key", label: "Custom Provider" },
+  {
+    value: "azure-openai-api-key",
+    label: "Azure OpenAI API key",
+    hint: "Requires resource name and deployment name",
+  },
 ];
 
 export function formatAuthChoiceChoicesForCli(params?: {

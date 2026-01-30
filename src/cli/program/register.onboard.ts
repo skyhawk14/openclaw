@@ -90,6 +90,9 @@ export function registerOnboardCommand(program: Command) {
       "--custom-compatibility <mode>",
       "Custom provider API compatibility: openai|anthropic (default: openai)",
     )
+    .option("--azure-openai-api-key <key>", "Azure OpenAI API key")
+    .option("--azure-openai-resource-name <name>", "Azure OpenAI resource name")
+    .option("--azure-openai-deployment-name <name>", "Azure OpenAI deployment name")
     .option("--gateway-port <port>", "Gateway port")
     .option("--gateway-bind <mode>", "Gateway bind: loopback|tailnet|lan|auto|custom")
     .option("--gateway-auth <mode>", "Gateway auth: token|password")
@@ -155,6 +158,9 @@ export function registerOnboardCommand(program: Command) {
           customModelId: opts.customModelId as string | undefined,
           customProviderId: opts.customProviderId as string | undefined,
           customCompatibility: opts.customCompatibility as "openai" | "anthropic" | undefined,
+          azureOpenAiApiKey: opts.azureOpenAiApiKey as string | undefined,
+          azureOpenAiResourceName: opts.azureOpenAiResourceName as string | undefined,
+          azureOpenAiDeploymentName: opts.azureOpenAiDeploymentName as string | undefined,
           gatewayPort:
             typeof gatewayPort === "number" && Number.isFinite(gatewayPort)
               ? gatewayPort
