@@ -180,6 +180,12 @@ const AUTH_CHOICE_GROUP_DEFS: {
     choices: ["cloudflare-ai-gateway-api-key"],
   },
   {
+    value: "azure-openai",
+    label: "Azure OpenAI",
+    hint: "API key + resource/deployment",
+    choices: ["azure-openai-api-key"],
+  },
+  {
     value: "custom",
     label: "Custom Provider",
     hint: "Any OpenAI or Anthropic compatible endpoint",
@@ -296,6 +302,11 @@ const BASE_AUTH_CHOICE_OPTIONS: ReadonlyArray<AuthChoiceOption> = [
     value: "minimax-api-lightning",
     label: "MiniMax M2.5 Highspeed",
     hint: "Official fast tier (legacy: Lightning)",
+  },
+  {
+    value: "azure-openai-api-key",
+    label: "Azure OpenAI API key",
+    hint: "Requires resource name and deployment name",
   },
   { value: "custom-api-key", label: "Custom Provider" },
 ];

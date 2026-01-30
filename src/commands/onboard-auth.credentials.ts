@@ -502,3 +502,15 @@ export async function setKilocodeApiKey(
     agentDir: resolveAuthAgentDir(agentDir),
   });
 }
+
+export async function setAzureOpenAiApiKey(key: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "azure-openai:default",
+    credential: {
+      type: "api_key",
+      provider: "azure-openai",
+      key,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
