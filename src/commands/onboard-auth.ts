@@ -74,6 +74,7 @@ export {
   setCloudflareAiGatewayConfig,
   setByteplusApiKey,
   setQianfanApiKey,
+  setAzureOpenAiApiKey,
   setGeminiApiKey,
   setKilocodeApiKey,
   setLitellmApiKey,
