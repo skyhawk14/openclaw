@@ -16,6 +16,11 @@ import {
   SYNTHETIC_BASE_URL,
   SYNTHETIC_MODEL_CATALOG,
 } from "./synthetic-models.js";
+import {
+  TOGETHER_BASE_URL,
+  TOGETHER_MODEL_CATALOG,
+  buildTogetherModelDefinition,
+} from "./together-models.js";
 import { discoverVeniceModels, VENICE_BASE_URL } from "./venice-models.js";
 import {
   buildAzureOpenAIProvider,
@@ -419,6 +424,14 @@ async function buildOllamaProvider(): Promise<ProviderConfig> {
   };
 }
 
+function buildTogetherProvider(): ProviderConfig {
+  return {
+    baseUrl: TOGETHER_BASE_URL,
+    api: "openai-completions",
+    models: TOGETHER_MODEL_CATALOG.map(buildTogetherModelDefinition),
+  };
+}
+
 export function buildQianfanProvider(): ProviderConfig {
   return {
     baseUrl: QIANFAN_BASE_URL,
@@ -564,6 +577,16 @@ export async function resolveImplicitProviders(params: {
     }
   }
 
+  const togetherKey =
+    resolveEnvApiKeyVarName("together") ??
+    resolveApiKeyFromProfiles({ provider: "together", store: authStore });
+  if (togetherKey) {
+    providers.together = {
+      ...buildTogetherProvider(),
+      apiKey: togetherKey,
+    };
+  }
+
   const qianfanKey =
     resolveEnvApiKeyVarName("qianfan") ??
     resolveApiKeyFromProfiles({ provider: "qianfan", store: authStore });
@@ -579,7 +602,9 @@ export async function resolveImplicitCopilotProvider(params: {
   env?: NodeJS.ProcessEnv;
 }): Promise<ProviderConfig | null> {
   const env = params.env ?? process.env;
-  const authStore = ensureAuthProfileStore(params.agentDir, { allowKeychainPrompt: false });
+  const authStore = ensureAuthProfileStore(params.agentDir, {
+    allowKeychainPrompt: false,
+  });
   const hasProfile = listProfilesForProvider(authStore, "github-copilot").length > 0;
   const envToken = env.COPILOT_GITHUB_TOKEN ?? env.GH_TOKEN ?? env.GITHUB_TOKEN;
   const githubToken = (envToken ?? "").trim();
@@ -650,7 +675,10 @@ export async function resolveImplicitBedrockProvider(params: {
   }
 
   const region = discoveryConfig?.region ?? env.AWS_REGION ?? env.AWS_DEFAULT_REGION ?? "us-east-1";
-  const models = await discoverBedrockModels({ region, config: discoveryConfig });
+  const models = await discoverBedrockModels({
+    region,
+    config: discoveryConfig,
+  });
   if (models.length === 0) {
     return null;
   }
