@@ -26,6 +26,7 @@ export type AuthChoiceGroupId =
   | "together"
   | "qianfan"
   | "xai"
+  | "custom"
   | "azure-openai";
 
 export type AuthChoiceGroup = {
@@ -150,6 +151,12 @@ const AUTH_CHOICE_GROUP_DEFS: {
     choices: ["cloudflare-ai-gateway-api-key"],
   },
   {
+    value: "custom",
+    label: "Custom API Endpoint",
+    hint: "Any OpenAI or Anthropic compatible endpoint",
+    choices: ["custom-api-key"],
+  },
+  {
     value: "azure-openai",
     label: "Azure OpenAI",
     hint: "API key + resource/deployment",
@@ -259,6 +266,8 @@ export function buildAuthChoiceOptions(params: {
     label: "MiniMax M2.1 Lightning",
     hint: "Faster, higher output cost",
   });
+  options.push({ value: "custom-api-key", label: "Custom API Endpoint" });
+
   options.push({
     value: "azure-openai-api-key",
     label: "Azure OpenAI API key",
