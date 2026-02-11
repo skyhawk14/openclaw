@@ -58,7 +58,7 @@ export function registerOnboardCommand(program: Command) {
     .option("--mode <mode>", "Wizard mode: local|remote")
     .option(
       "--auth-choice <choice>",
-      "Auth: setup-token|token|chutes|openai-codex|openai-api-key|xai-api-key|qianfan-api-key|openrouter-api-key|litellm-api-key|ai-gateway-api-key|cloudflare-ai-gateway-api-key|moonshot-api-key|moonshot-api-key-cn|kimi-code-api-key|synthetic-api-key|venice-api-key|gemini-api-key|zai-api-key|xiaomi-api-key|apiKey|minimax-api|minimax-api-lightning|opencode-zen|azure-openai-api-key|skip|together-api-key",
+      "Auth: setup-token|token|chutes|openai-codex|openai-api-key|xai-api-key|qianfan-api-key|openrouter-api-key|litellm-api-key|ai-gateway-api-key|cloudflare-ai-gateway-api-key|moonshot-api-key|moonshot-api-key-cn|kimi-code-api-key|synthetic-api-key|venice-api-key|gemini-api-key|zai-api-key|xiaomi-api-key|apiKey|minimax-api|minimax-api-lightning|opencode-zen|custom-api-key|azure-openai-api-key|skip|together-api-key",
     )
     .option(
       "--token-provider <id>",
@@ -90,6 +90,14 @@ export function registerOnboardCommand(program: Command) {
     .option("--xai-api-key <key>", "xAI API key")
     .option("--litellm-api-key <key>", "LiteLLM API key")
     .option("--qianfan-api-key <key>", "QIANFAN API key")
+    .option("--custom-base-url <url>", "Custom provider base URL")
+    .option("--custom-api-key <key>", "Custom provider API key (optional)")
+    .option("--custom-model-id <id>", "Custom provider model ID")
+    .option("--custom-provider-id <id>", "Custom provider ID (optional; auto-derived by default)")
+    .option(
+      "--custom-compatibility <mode>",
+      "Custom provider API compatibility: openai|anthropic (default: openai)",
+    )
     .option("--azure-openai-api-key <key>", "Azure OpenAI API key")
     .option("--azure-openai-resource-name <name>", "Azure OpenAI resource name")
     .option("--azure-openai-deployment-name <name>", "Azure OpenAI deployment name")
@@ -151,6 +159,11 @@ export function registerOnboardCommand(program: Command) {
             opencodeZenApiKey: opts.opencodeZenApiKey as string | undefined,
             xaiApiKey: opts.xaiApiKey as string | undefined,
             litellmApiKey: opts.litellmApiKey as string | undefined,
+            customBaseUrl: opts.customBaseUrl as string | undefined,
+            customApiKey: opts.customApiKey as string | undefined,
+            customModelId: opts.customModelId as string | undefined,
+            customProviderId: opts.customProviderId as string | undefined,
+            customCompatibility: opts.customCompatibility as "openai" | "anthropic" | undefined,
             azureOpenAiApiKey: opts.azureOpenAiApiKey as string | undefined,
             azureOpenAiResourceName: opts.azureOpenAiResourceName as string | undefined,
             azureOpenAiDeploymentName: opts.azureOpenAiDeploymentName as string | undefined,
