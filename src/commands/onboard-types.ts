@@ -127,9 +127,6 @@ export type OnboardOptions = {
   customModelId?: string;
   customProviderId?: string;
   customCompatibility?: "openai" | "anthropic";
-  azureOpenAiApiKey?: string;
-  azureOpenAiResourceName?: string;
-  azureOpenAiDeploymentName?: string;
   gatewayPort?: number;
   gatewayBind?: GatewayBind;
   gatewayAuth?: GatewayAuthChoice;
