@@ -178,7 +178,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter OpenRouter API key",
         validate: validateApiKeyInput,
       });
-      await setOpenrouterApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setOpenrouterApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
       hasCredential = true;
     }
 
@@ -243,7 +243,7 @@ export async function applyAuthChoiceApiProviders(
           message: "Enter LiteLLM API key",
           validate: validateApiKeyInput,
         });
-        await setLitellmApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+        await setLitellmApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
         hasCredential = true;
       }
     }
@@ -297,7 +297,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Vercel AI Gateway API key",
         validate: validateApiKeyInput,
       });
-      await setVercelAiGatewayApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setVercelAiGatewayApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "vercel-ai-gateway:default",
@@ -330,16 +330,16 @@ export async function applyAuthChoiceApiProviders(
       if (!accountId) {
         const value = await params.prompter.text({
           message: "Enter Cloudflare Account ID",
-          validate: (val) => (String(val).trim() ? undefined : "Account ID is required"),
+          validate: (val) => (String(val ?? "").trim() ? undefined : "Account ID is required"),
         });
-        accountId = String(value).trim();
+        accountId = String(value ?? "").trim();
       }
       if (!gatewayId) {
         const value = await params.prompter.text({
           message: "Enter Cloudflare AI Gateway ID",
-          validate: (val) => (String(val).trim() ? undefined : "Gateway ID is required"),
+          validate: (val) => (String(val ?? "").trim() ? undefined : "Gateway ID is required"),
         });
-        gatewayId = String(value).trim();
+        gatewayId = String(value ?? "").trim();
       }
     };
 
@@ -382,7 +382,7 @@ export async function applyAuthChoiceApiProviders(
       await setCloudflareAiGatewayConfig(
         accountId,
         gatewayId,
-        normalizeApiKeyInput(String(key)),
+        normalizeApiKeyInput(String(key ?? "")),
         params.agentDir,
       );
       hasCredential = true;
@@ -444,7 +444,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Moonshot API key",
         validate: validateApiKeyInput,
       });
-      await setMoonshotApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setMoonshotApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "moonshot:default",
@@ -491,7 +491,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Moonshot API key (.cn)",
         validate: validateApiKeyInput,
       });
-      await setMoonshotApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setMoonshotApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "moonshot:default",
@@ -551,7 +551,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Kimi Coding API key",
         validate: validateApiKeyInput,
       });
-      await setKimiCodingApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setKimiCodingApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "kimi-coding:default",
@@ -599,7 +599,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Gemini API key",
         validate: validateApiKeyInput,
       });
-      await setGeminiApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setGeminiApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "google:default",
@@ -667,7 +667,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Z.AI API key",
         validate: validateApiKeyInput,
       });
-      apiKey = normalizeApiKeyInput(String(key));
+      apiKey = normalizeApiKeyInput(String(key ?? ""));
       await setZaiApiKey(apiKey, params.agentDir);
     }
 
@@ -764,7 +764,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Xiaomi API key",
         validate: validateApiKeyInput,
       });
-      await setXiaomiApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setXiaomiApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "xiaomi:default",
@@ -790,13 +790,13 @@ export async function applyAuthChoiceApiProviders(
 
   if (authChoice === "synthetic-api-key") {
     if (params.opts?.token && params.opts?.tokenProvider === "synthetic") {
-      await setSyntheticApiKey(String(params.opts.token).trim(), params.agentDir);
+      await setSyntheticApiKey(String(params.opts.token ?? "").trim(), params.agentDir);
     } else {
       const key = await params.prompter.text({
         message: "Enter Synthetic API key",
         validate: (value) => (value?.trim() ? undefined : "Required"),
       });
-      await setSyntheticApiKey(String(key).trim(), params.agentDir);
+      await setSyntheticApiKey(String(key ?? "").trim(), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "synthetic:default",
@@ -855,7 +855,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Venice AI API key",
         validate: validateApiKeyInput,
       });
-      await setVeniceApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setVeniceApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "venice:default",
@@ -912,7 +912,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter OpenCode Zen API key",
         validate: validateApiKeyInput,
       });
-      await setOpencodeZenApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setOpencodeZenApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "opencode:default",
@@ -970,7 +970,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter Together AI API key",
         validate: validateApiKeyInput,
       });
-      await setTogetherApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      await setTogetherApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "together:default",
@@ -1026,7 +1026,7 @@ export async function applyAuthChoiceApiProviders(
         message: "Enter QIANFAN API key",
         validate: validateApiKeyInput,
       });
-      setQianfanApiKey(normalizeApiKeyInput(String(key)), params.agentDir);
+      setQianfanApiKey(normalizeApiKeyInput(String(key ?? "")), params.agentDir);
     }
     nextConfig = applyAuthProfileConfig(nextConfig, {
       profileId: "qianfan:default",
